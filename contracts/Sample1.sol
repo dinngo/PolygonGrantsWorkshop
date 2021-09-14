@@ -1,5 +1,4 @@
 pragma solidity 0.8.6;
-pragma experimental ABIEncoderV2;
 
 import "./lib/BytesLib.sol";
 
@@ -22,9 +21,9 @@ interface IProxy {
 contract Sample1 {
     using BytesLib for bytes;
     
-    address public constant HFunds = 0x3B3f747aC68750Eb936e9116141b79358579DE84;
-    address public constant HQuickswap = 0x6107114BDf5691ADEE675Ea6E9f09d34c6338cc4;
-    address public constant HAaveV2 = 0xD4E8f7FfDF98F7C170A48A31d2f6d358829878Af; 
+    address public constant HFUNDS = 0x3B3f747aC68750Eb936e9116141b79358579DE84;
+    address public constant HQUICKSWAP = 0x6107114BDf5691ADEE675Ea6E9f09d34c6338cc4;
+    address public constant HAAVEV2 = 0xD4E8f7FfDF98F7C170A48A31d2f6d358829878Af; 
     address public constant amDAI = 0x27F8D03b3a2196956ED754baDc28D73be8830A6e;
 
     IProxy public furucomboProxy;
@@ -65,8 +64,8 @@ contract Sample1 {
 
     function getTos() private pure returns (address[] memory){
         address[] memory tos = new address[](2);
-        tos[0] = HQuickswap;
-        tos[1] = HAaveV2;
+        tos[0] = HQUICKSWAP;
+        tos[1] = HAAVEV2;
         // tos[2] = HFunds;
         return tos;
     }
@@ -82,7 +81,7 @@ contract Sample1 {
     function getDatas(uint256 amount2Swap) private pure returns (bytes[] memory){
         bytes[] memory result = new bytes[](2);
 
-        // bytes memory firstHandlerDatas = hex"d0241dac00000000000000000000000000000000000000000000003635c9adc5dea000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000030000000000000000000000000d500b1d8e8ef31e21c99d1db9a6444d3adf12700000000000000000000000007ceb23fd6bc0add59e62ac25578270cff1b9f6190000000000000000000000008f3cf7ad23cd3cadbd9735aff958023239c6a063";
+        
         bytes memory firstHandlerFuncSelector = abi.encodePacked(bytes4(keccak256("swapExactETHForTokens(uint256,uint256,address[])")));
         bytes memory amount = abi.encode(amount2Swap);
         bytes memory firstHandlerRemainingDatas = hex"0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000030000000000000000000000000d500b1d8e8ef31e21c99d1db9a6444d3adf12700000000000000000000000007ceb23fd6bc0add59e62ac25578270cff1b9f6190000000000000000000000008f3cf7ad23cd3cadbd9735aff958023239c6a063";    
